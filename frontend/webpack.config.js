@@ -13,6 +13,11 @@ module.exports = {
     historyApiFallback: true,
     port: 8000,
     host: '0.0.0.0',
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Headers': '*',
+    },
+
   },
   devtool: 'eval',
   output: {

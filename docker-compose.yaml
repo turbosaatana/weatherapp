@@ -1,0 +1,21 @@
+version: '3.1'
+
+services:
+
+  weather_backend:
+    build:
+      dockerfile: ./Dockerfile
+      context: ./backend
+    ports:
+      - 9000:9000
+    environment:
+      - APPID=cdf2967773fc073afd4e6be33afdf230
+
+  weather_frontend:
+    build:
+      dockerfile: ./Dockerfile
+      context: ./frontend
+    ports:
+      - 8000:8000
+    environment: 
+      - ENDPOINT=http://localhost:9000

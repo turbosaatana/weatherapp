@@ -5,13 +5,11 @@ const baseURL = process.env.ENDPOINT;
 
 const getWeatherFromApi = async () => {
   try {
-    const response = await fetch(`${baseURL}/weather`);
+    const response = await fetch(`${baseURL}/api/weather`);
     return response.json();
   } catch (error) {
-    console.error(error);
+    return {};
   }
-
-  return {};
 };
 
 class Weather extends React.Component {
@@ -19,21 +17,24 @@ class Weather extends React.Component {
     super(props);
 
     this.state = {
-      icon: "",
+      icon: '',
     };
   }
 
   async componentWillMount() {
     const weather = await getWeatherFromApi();
-    this.setState({icon: weather.icon.slice(0, -1)});
+    this.setState({ icon: weather.icon.slice(0, -1),
+      description: weather.description.slice(0, -1) });
   }
 
   render() {
-    const { icon } = this.state;
-
+    const { icon, description } = this.state;
     return (
-      <div className="icon">
-        { icon && <img src={`/img/${icon}.svg`} /> }
+      <div>
+        <div className="icon">
+          { icon && <img src={`/img/${icon}.svg`} alt={`${description}`} /> }
+          <span>{ description }</span>
+        </div>
       </div>
     );
   }
